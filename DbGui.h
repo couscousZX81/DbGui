@@ -5,12 +5,12 @@ namespace DbGui
   class Menu
   {
   public:
+    virtual void DoMenu();
     void ProcessMenu();
     
   private:
     void Start();
     void Finish();
-    virtual void DoMenu();
     
     itemId m_hotItem;
   }
