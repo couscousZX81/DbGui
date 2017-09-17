@@ -91,7 +91,7 @@ namespace DbGui
       _context.KeyDown &= INPUT_BACK;
       
     if (_menu)
-      _menu->process();
+      _menu->Process();
   }
   
   void Init(int x, int y, int labelWidth, int fieldWidth)
@@ -107,7 +107,7 @@ namespace DbGui
     bool retVal = false;
     itemId thisItem(label);
     
-    if (!pOwningMenu->m_hotItem.exists())
+    if (!pOwningMenu->m_hotItem.Exists())
       pOwningMenu->hotItem = thisItem;
       
     if (pOwningMenu->hotItem == thisItem)
@@ -115,7 +115,7 @@ namespace DbGui
       if (_context.KeyDown & INPUT_GO)
         retVal = true;
       else if (_context.KeyDown & INPUT_NEXT)
-        pOwningMenu->hotItem.clear();
+        pOwningMenu->hotItem.Clear();
       else if (_context.KeyDown & INPUT_PREV)
         pOwningMenu->hotItem = _context.lastItem;
     }
