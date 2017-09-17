@@ -2,12 +2,6 @@
 
 namespace DbGui
 {
-  struct itemId
-  {
-    int m_name;
-    bool m_bEmpty;
-  }
-  
   struct context
   {
     int keybits;
