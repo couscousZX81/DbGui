@@ -9,7 +9,7 @@ namespace DbGui
   static const int INPUT_GO   = 0x004;
   static const int INPUT_BACK = 0x008;
   
-  struct context
+  struct Context
   {
     itemID lastItem;
     int keyDown;
@@ -54,34 +54,31 @@ namespace DbGui
       return true;
     }
     
-    void set();
-    void clear() {m_bExists = 0;}
-    bool exists() {return m_bExists;}
+    void Clear() {m_bExists = 0;}
+    bool Exists() {return m_bExists;}
     
   private:
     bool m_bExists;
     int m_Name;
   }
   
-  void Menu::start()
+  void Menu::Start()
   {
-    m_hotItem.clear();
+    m_hotItem.Clear();
   }
   
-  void Menu::finish()
+  void Menu::Finish()
   {
-    if (!(_context.KeyDown & INPUT_GO))
-      m_activeItem->clear();
   }
   
-  void Menu::process()
+  void Menu::Process()
   {
-    start();
-    run();
-    finish();
+    Start();
+    Run();
+    Finish();
   }
   
-  void process()
+  void Process()
   {
     _context.keyDown = 0;
     if (inputNext)
@@ -97,7 +94,7 @@ namespace DbGui
       _menu->process();
   }
   
-  void init(int x, int y, int labelWidth, int fieldWidth)
+  void Init(int x, int y, int labelWidth, int fieldWidth)
   {
     _context.currentX = x;
     _context.currentY = y;
@@ -105,7 +102,7 @@ namespace DbGui
     _context.fieldWidth = fieldWidth;
   }
   
-  bool button(Menu* pOwningMenu, const char* label)
+  bool Button(Menu* pOwningMenu, const char* label)
   {
     bool retVal = false;
     itemId thisItem(label);
