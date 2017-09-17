@@ -105,22 +105,22 @@ namespace DbGui
     _context.fieldWidth = fieldWidth;
   }
   
-  bool button(Menu* menu, const char* label)
+  bool button(Menu* pOwningMenu, const char* label)
   {
     bool retVal = false;
     itemId thisItem(label);
     
-    if (!menu->m_hotItem.exists())
-      menu->hotItem = thisItem;
+    if (!pOwningMenu->m_hotItem.exists())
+      pOwningMenu->hotItem = thisItem;
       
-    if (menu->hotItem == thisItem)
+    if (pOwningMenu->hotItem == thisItem)
     {
       if (_context.KeyDown & INPUT_GO)
         retVal = true;
       else if (_context.KeyDown & INPUT_NEXT)
-        menu->hotItem.clear();
+        pOwningMenu->hotItem.clear();
       else if (_context.KeyDown & INPUT_PREV)
-        menu->hotItem = _context.lastItem;
+        pOwningMenu->hotItem = _context.lastItem;
     }
     
     //draw
