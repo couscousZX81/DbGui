@@ -117,7 +117,8 @@ namespace DbGui
       else if (_context.KeyDown & INPUT_NEXT)
         pOwningMenu->hotItem.Clear();
       else if (_context.KeyDown & INPUT_PREV)
-        pOwningMenu->hotItem = _context.lastItem;
+        pOwningMenu->hotItem = _context.lastItem; 
+      _context.KeyDown = 0;
     }
     
     //draw
