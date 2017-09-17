@@ -80,6 +80,9 @@ namespace DbGui
   
   void Process()
   {
+    if (!pCurrentMenu)
+      return;
+    
     _context.keyDown = 0;
     if (inputNext)
       _context.keyDown &= INPUT_NEXT;
@@ -90,8 +93,7 @@ namespace DbGui
     if (inputBack)
       _context.KeyDown &= INPUT_BACK;
       
-    if (_menu)
-      _menu->ProcessMenu();
+    pCurrentMenu->ProcessMenu();
   }
   
   void SetMenuLayout(int x, int y, int labelWidth, int fieldWidth)
@@ -102,30 +104,47 @@ namespace DbGui
     _context.fieldWidth = fieldWidth;
   }
   
-  bool Button(Menu* pOwningMenu, const char* label)
+  bool Navigate(itemId &thisItem)
   {
-    bool retVal = false;
-    itemId thisItem(label);
-    
-    if (!pOwningMenu->m_hotItem.Exists())
-      pOwningMenu->hotItem = thisItem;
+     if (!pCurrentMenu->m_hotItem.Exists())
+      pCurrentMenu->hotItem = thisItem;
       
-    if (pOwningMenu->hotItem == thisItem)
+    if (pCurrentMenu->hotItem == thisItem)
+    {
+      else if (_context.KeyDown & INPUT_NEXT)
+      {
+        pCurrentMenu->hotItem.Clear();
+        _context.KeyDown = 0;
+      }
+      else if (_context.KeyDown & INPUT_PREV)
+        pCurrentMenu->hotItem = _context.lastItem; 
+    }
+  }
+  
+  void FinishWidget(itemId &thisItem)
+  {
+    _context.lastItem = thisItem;
+    _context.currentY += lineSpacing;
+  }
+  
+  bool Button(const char* label)
+  {
+    if (!pCurrentMenu)
+      return false;
+    
+    itemId thisItem(label);
+    Navigate(thisItem);
+    
+    bool retVal = false;
+    if (pCurrentMenu->hotItem == thisItem)
     {
       if (_context.KeyDown & INPUT_GO)
         retVal = true;
-      else if (_context.KeyDown & INPUT_NEXT)
-        pOwningMenu->hotItem.Clear();
-      else if (_context.KeyDown & INPUT_PREV)
-        pOwningMenu->hotItem = _context.lastItem; 
-      _context.KeyDown = 0;
     }
     
     //draw
       
-    _context.lastItem = thisItem;
-    _context.currentY += lineSpacing;
-    
+    FinishWidget(thisItem);
     return retVal;
   }
 }
