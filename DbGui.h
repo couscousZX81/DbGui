@@ -19,5 +19,5 @@ namespace DbGui
   
   void process();
   void init(int x, int y, int labelWidth, int fieldWidth();
-  void button(const char *label);
+  void button(Menu* pOwningMenu, const char *label);
 }
