@@ -74,7 +74,7 @@ namespace DbGui
   void Menu::Process()
   {
     Start();
-    Run();
+    DoMenu();
     Finish();
   }
   
@@ -91,10 +91,10 @@ namespace DbGui
       _context.KeyDown &= INPUT_BACK;
       
     if (_menu)
-      _menu->Process();
+      _menu->ProcessMenu();
   }
   
-  void Init(int x, int y, int labelWidth, int fieldWidth)
+  void SetMenuLayout(int x, int y, int labelWidth, int fieldWidth)
   {
     _context.currentX = x;
     _context.currentY = y;
