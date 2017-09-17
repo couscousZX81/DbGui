@@ -2,15 +2,66 @@
 
 namespace DbGui
 {
+  static const int lineSpacing = 10;
+  
+  static const int INPUT_NEXT = 0x001;
+  static const int INPUT_PREV = 0x002;
+  static const int INPUT_GO   = 0x004;
+  static const int INPUT_BACK = 0x008;
+  
   struct context
   {
+    itemID lastItem;
     int keyDown;
-    int lastItem;
     int currentX;
     int currentY;
     int labelWidth;
     int fieldWidth;
   } _context;
+  
+  class ItemId
+  {
+  public:
+    ItemId() 
+      : m_bExists(0)
+    {
+    }
+    
+    ItemId(int name)
+      : m_bExists(true)
+      , m_Name(name)
+    {
+    }
+    
+    virtual ~ItemId()
+    {
+    }
+    
+    ItemId operator=(const ItemID& other)
+    {
+      m_Name = other.m_Name;
+      m_bExists = other.m_bExists;
+    }
+    
+    ItemId operator==(const ItemID& other)
+    {
+      if (m_bExists != other.m_bExists)
+        return false;
+      
+      if (m_Name != other.m_Name)
+        return false;
+      
+      return true;
+    }
+    
+    void set();
+    void clear() {m_bExists = 0;}
+    bool exists() {return m_bExists;}
+    
+  private:
+    bool m_bExists;
+    int m_Name;
+  }
   
   void Menu::start()
   {
@@ -54,9 +105,29 @@ namespace DbGui
     _context.fieldWidth = fieldWidth;
   }
   
-  void button(const char* label)
+  bool button(Menu* menu, const char* label)
   {
+    bool retVal = false;
+    itemId thisItem(label);
     
-    currentY += lineSpacing;
+    if (!menu->m_hotItem.exists())
+      menu->hotItem = thisItem;
+      
+    if (menu->hotItem == thisItem)
+    {
+      if (_context.KeyDown & INPUT_GO)
+        retVal = true;
+      else if (_context.KeyDown & INPUT_NEXT)
+        menu->hotItem.clear();
+      else if (_context.KeyDown & INPUT_PREV)
+        menu->hotItem = _context.lastItem;
+    }
+    
+    //draw
+      
+    _context.lastItem = thisItem;
+    _context.currentY += lineSpacing;
+    
+    return retVal;
   }
 }
