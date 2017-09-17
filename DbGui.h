@@ -5,19 +5,19 @@ namespace DbGui
   class Menu
   {
   public:
-    void process();
+    void Process();
     
   private:
-    void start();
-    void finish();
-    virtual void run();
+    void Start();
+    void Finish();
+    virtual void Run();
     
     itemId m_hotItem;
   }
   
   Menu* _menu;
   
-  void process();
-  void init(int x, int y, int labelWidth, int fieldWidth();
-  void button(Menu* pOwningMenu, const char *label);
+  void Process();
+  void Init(int x, int y, int labelWidth, int fieldWidth();
+  void Button(Menu* pOwningMenu, const char *label);
 }
