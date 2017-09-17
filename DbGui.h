@@ -2,6 +2,9 @@
 
 namespace DbGui
 { 
+  void SetMenuLayout(int x, int y, int labelWidth, int fieldWidth();
+  void Button(const char *label);
+                     
   class Menu
   {
   public:
@@ -20,6 +23,4 @@ namespace DbGui
   Menu* _menu;
   
   void Process();
-  void SetMenuLayout(int x, int y, int labelWidth, int fieldWidth();
-  void Button(const char *label);
 }
