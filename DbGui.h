@@ -5,8 +5,10 @@ namespace DbGui
   class Menu
   {
   public:
-    virtual void DoMenu();
     void ProcessMenu();
+    
+  protected:
+    virtual void DoMenu();
     
   private:
     void Start();
