@@ -2,25 +2,25 @@
 
 namespace DbGui
 { 
-  void SetMenuLayout(int x, int y, int labelWidth, int fieldWidth();
   void Button(const char *label);
                      
-  class Menu
+  struct Menu
   {
-  public:
-    void ProcessMenu();
-    
-  protected:
-    virtual void DoMenu();
-    
-  private:
-    void Start();
-    void Finish();
-    
-    itemId m_hotItem;
+    virtual void Process();
+    ItemId m_cursorItem;
   }
-  
-  Menu* _menu;
-  
-  void Process();
+                     
+  struct Context
+  {
+    Menu* m_pActiveMenu;
+    ItemID m_currentItem;
+    ItemID m_previousItem;
+    int m_keyDown;
+    int m_atY;
+    
+    void Init();
+    void Process();
+    void DoCursorInput();
+    void FinishedItem();
+  };
 }
