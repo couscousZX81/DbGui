@@ -52,6 +52,7 @@ namespace DbGui
       m_keyDown &= INPUT_BACK;
     
     m_atY = 100;
+    m_previousItem.Clear();
     m_pActiveMenu->fnProcess();
   }
   
