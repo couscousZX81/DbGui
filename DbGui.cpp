@@ -9,24 +9,6 @@ namespace DbGui
   
   //---------------------------------------------------------------------------
   
-  void Menu::Start()
-  {
-    m_hotItem.Clear();
-  }
-  
-  void Menu::Finish()
-  {
-  }
-  
-  void Menu::Process()
-  {
-    Start();
-    DoMenu();
-    Finish();
-  }
-  
-  //---------------------------------------------------------------------------
-  
   void Context::Process()
   {
     if (!m_pActiveMenu || !m_pActiveMenu->fnProcess)
