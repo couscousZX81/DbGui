@@ -1,9 +1,7 @@
 
 
 namespace DbGui
-{ 
-  void Button(const char *label);
-                     
+{                 
   struct Menu
   {
     virtual void Process();
@@ -22,5 +20,7 @@ namespace DbGui
     void Process();
     void DoCursorInput();
     void FinishedItem();
+    
+    void Button(const char *label);
   };
 }
