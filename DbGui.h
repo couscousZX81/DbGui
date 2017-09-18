@@ -1,11 +1,39 @@
 
 
 namespace DbGui
-{                 
+{         
+  struct ItemId
+  {
+    ItemId operator=(const ItemID& other)
+    {
+      m_Name = other.m_Name;
+      m_bExists = other.m_bExists;
+    }
+    
+    ItemId operator==(const ItemID& other)
+    {
+      if (m_bExists != other.m_bExists)
+        return false;
+      
+      if (m_Name != other.m_Name)
+        return false;
+      
+      return true;
+    }
+    
+    void Init() {m_bExists = 1;}
+    void Clear() {m_bExists = 0;}
+    bool Exists() {return m_bExists;}
+    
+    bool m_bExists;
+    int m_Name;
+  }
+  
   struct Menu
   {
-    virtual void Process();
     ItemId m_cursorItem;
+    
+    void (*fnProcess)(void);
   }
                      
   struct Context
@@ -16,7 +44,6 @@ namespace DbGui
     int m_keyDown;
     int m_atY;
     
-    void Init();
     void Process();
     void DoCursorInput();
     void FinishedItem();
