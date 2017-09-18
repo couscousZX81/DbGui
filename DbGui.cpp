@@ -41,6 +41,10 @@ namespace DbGui
     if (!m_pActiveMenu || !m_pActiveMenu->fnProcess)
       return;
     
+    m_currentItem.Clear();
+    m_previousItem.Clear();
+    m_atY = 100;
+    
     m_keyDown = 0;
     if (inputNext)
       m_keyDown &= INPUT_NEXT;
@@ -51,8 +55,6 @@ namespace DbGui
     if (inputBack)
       m_keyDown &= INPUT_BACK;
     
-    m_atY = 100;
-    m_previousItem.Clear();
     m_pActiveMenu->fnProcess();
   }
   
