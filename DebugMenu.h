@@ -1,1 +1,5 @@
 
+namespce DebugMenu
+{
+  void Process();
+}
