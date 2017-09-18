@@ -2,5 +2,5 @@
 namespace DebugMenu
 {
   void Init();
-  void Process();
+  void Exit();
 }
