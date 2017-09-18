@@ -93,7 +93,7 @@ namespace DbGui
     DoCursorInput();
     
     bool bPressed = false;
-    if (m_pActiveMenu->hotItem == thisItem)
+    if (m_pActiveMenu->m_cursorItem == thisItem)
     {
       if (_context.KeyDown & INPUT_PUSH)
         bPressed = true;
