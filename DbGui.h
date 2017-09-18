@@ -21,6 +21,6 @@ namespace DbGui
     void DoCursorInput();
     void FinishedItem();
     
-    void Button(const char *label);
+    bool Button(const char *label);
   };
 }
