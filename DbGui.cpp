@@ -95,7 +95,7 @@ namespace DbGui
     bool bPressed = false;
     if (m_pActiveMenu->m_cursorItem == thisItem)
     {
-      if (_context.KeyDown & INPUT_PUSH)
+      if (m_keyDown & INPUT_PUSH)
         bPressed = true;
     }
     
