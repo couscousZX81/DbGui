@@ -2,10 +2,12 @@
 
 namespace DbGui
 { 
-  static const int INPUT_NEXT = 0x001;
-  static const int INPUT_PREV = 0x002;
-  static const int INPUT_GO   = 0x004;
-  static const int INPUT_BACK = 0x008;
+  static const int INPUT_NEXT = 0x0001;
+  static const int INPUT_PREV = 0x0002;
+  static const int INPUT_INC = 0x0004;
+  static const int INPUT_DEC = 0x0008;
+  static const int INPUT_PUSH = 0x0010;
+  static const int INPUT_POP = 0x0020;
   
   //---------------------------------------------------------------------------
   
@@ -50,10 +52,14 @@ namespace DbGui
       m_keyDown &= INPUT_NEXT;
     if (inputPrev)
       m_keyDown &= INPUT_PREV;
-    if (inputGo)
-      m_keyDown &= INPUT_GO;
-    if (inputBack)
-      m_keyDown &= INPUT_BACK;
+    if (inputInc)
+      m_keyDown &= INPUT_INC;
+    if (inputDec)
+      m_keyDown &= INPUT_DEC;
+    if (inputPush)
+      m_keyDown &= INPUT_PUSH;
+    if (inputPop)
+      m_keyDown &= INPUT_POP;
     
     m_pActiveMenu->fnProcess();
   }
@@ -89,7 +95,7 @@ namespace DbGui
     bool bPressed = false;
     if (m_pActiveMenu->hotItem == thisItem)
     {
-      if (_context.KeyDown & INPUT_GO)
+      if (_context.KeyDown & INPUT_PUSH)
         bPressed = true;
     }
     
