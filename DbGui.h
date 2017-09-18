@@ -4,6 +4,8 @@ namespace DbGui
 {         
   struct ItemId
   {
+    ItemId();
+    
     bool m_bExists;
     int m_Name;
     
@@ -24,13 +26,15 @@ namespace DbGui
       return true;
     }
     
-    void Init() {m_bExists = 1;}
+    void Init();
     void Clear() {m_bExists = 0;}
     bool Exists() {return m_bExists;}
   };
                      
   struct Context
   {
+    Context();
+    
     Menu* m_pActiveMenu;
     ItemID m_currentItem;
     ItemID m_previousItem;
@@ -46,8 +50,10 @@ namespace DbGui
   
   struct Menu
   {
+    Menu(void (*f)(void));
+    
     ItemId m_cursorItem;
     
-    void (*fnProcess)(void);
+    void (*m_fnProcess)(void);
   };
 }
