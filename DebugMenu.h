@@ -1,5 +1,5 @@
 
-namespce DebugMenu
+namespace DebugMenu
 {
   void Init();
   void Process();
