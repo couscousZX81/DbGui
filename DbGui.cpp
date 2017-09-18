@@ -22,6 +22,14 @@ namespace DbGui
   
   //---------------------------------------------------------------------------
   
+  Menu::Menu(void (*f)(void))
+    : m_fnProcess(f)
+  {
+    
+  }
+  
+  //---------------------------------------------------------------------------
+  
   Context::Context()
     : m_pActiveMenu(NULL)
   {
@@ -86,13 +94,5 @@ namespace DbGui
       
     FinishedItem();
     return bPressed;
-  }
-  
-  //---------------------------------------------------------------------------
-  
-  Menu::Menu(void (*f)(void))
-    : m_fnProcess(f)
-  {
-    
   }
 }
