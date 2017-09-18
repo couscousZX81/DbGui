@@ -3,25 +3,14 @@ namespace DebugMenu
 {
   DbGui::Context _context;
   
-  class MenuWaiting : public DbGui::Menu
-  {
-  public:
-    virtual void Process() override;
-  } _menuInactive;
-
-  class MenuMain : public DbGui::Menu
-  {
-  public:
-    virtual void Process() override;
-  } _menuMain;
-  
-  void MenuWaiting::Process()
+  void ProcessMenuWaiting()
   {
     if (L1+Select)
       _context.m_pActiveMenu = &_menuMain;
   }
+  DBGui::Menu _menuWaiting(&ProcessMenuWaiting);
   
-  void MenuMain::Process()
+  void ProcessMenuMain()
   {
     if (_context.Button(this, "Button1")
       //do Button1 stuff
@@ -29,10 +18,10 @@ namespace DebugMenu
     if (_context.Button(this, "Button2")
       //do Button2 stuff
   }
+  DBGui::Menu _menuMain(&ProcessMenuMain);
   
   void Init()
-  {
-    _context.Init();
+  {   
     _context.m_pActiveMenu = &_menuInactive;
   }
   
