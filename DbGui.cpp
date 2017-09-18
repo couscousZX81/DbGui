@@ -9,6 +9,24 @@ namespace DbGui
   
   //---------------------------------------------------------------------------
   
+  ItemId::ItemID()
+    : m_bExists(false)
+  {
+  }
+  
+  ItemId::Init()
+  {
+    m_bExists = 1;
+  }
+  
+  //---------------------------------------------------------------------------
+  
+  Context::Context()
+    : m_pActiveMenu(NULL)
+  {
+    
+  }
+  
   void Context::Process()
   {
     if (!m_pActiveMenu || !m_pActiveMenu->fnProcess)
@@ -67,5 +85,13 @@ namespace DbGui
       
     FinishedItem();
     return bPressed;
+  }
+  
+  //---------------------------------------------------------------------------
+  
+  Menu::Menu()
+    : m_fnProcess(NULL)
+  {
+    
   }
 }
