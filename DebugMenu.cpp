@@ -26,6 +26,11 @@ namespace DebugMenu
     _context.m_pActiveMenu = &_menuInactive;
   }
   
+  void Exit()
+  {   
+    _context.m_pActiveMenu = NULL;
+  }
+  
   void Process()
   {
     _context.Process();
