@@ -66,19 +66,19 @@ namespace DbGui
   
   void Context::DoCursorInput()
   {
-     if (!m_pActiveMenu->m_hotItem.Exists())
+    if (!m_pActiveMenu->m_hotItem.Exists())
       m_pActiveMenu->m_cursorItem = m_currentItem;
       
     if (m_pActiveMenu->m_cursorItem == m_currentItem)
     {
-      else if (m_keyDown & INPUT_NEXT)
-      {
+      if (m_keyDown & INPUT_NEXT)
         m_pActiveMenu->m_cursorItem.Clear();
-        m_keyDown = 0;
-      }
       else if (m_keyDown & INPUT_PREV)
-        m_pActiveMenu->m_cursorItem = _context.m_previousItem; 
+        m_pActiveMenu->m_cursorItem = m_previousItem; 
     }
+    
+    if (m_pActiveMenu->m_cursorItem != m_currentItem)
+        m_keyDown = 0;
   }
   
   void Context::FinishedItem()
