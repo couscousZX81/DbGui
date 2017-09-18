@@ -27,14 +27,7 @@ namespace DbGui
     void Init() {m_bExists = 1;}
     void Clear() {m_bExists = 0;}
     bool Exists() {return m_bExists;}
-  }
-  
-  struct Menu
-  {
-    ItemId m_cursorItem;
-    
-    void (*fnProcess)(void);
-  }
+  };
                      
   struct Context
   {
@@ -49,5 +42,12 @@ namespace DbGui
     void FinishedItem();
     
     bool Button(const char *label);
+  };
+  
+  struct Menu
+  {
+    ItemId m_cursorItem;
+    
+    void (*fnProcess)(void);
   };
 }
