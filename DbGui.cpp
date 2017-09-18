@@ -1,42 +1,14 @@
 
 
 namespace DbGui
-{
-  static const int lineSpacing = 10;
-  
+{ 
   static const int INPUT_NEXT = 0x001;
   static const int INPUT_PREV = 0x002;
   static const int INPUT_GO   = 0x004;
   static const int INPUT_BACK = 0x008;
   
-  struct Context
+  struct ItemId
   {
-    itemID lastItem;
-    int keyDown;
-    int currentX;
-    int currentY;
-    int labelWidth;
-    int fieldWidth;
-  } _context;
-  
-  class ItemId
-  {
-  public:
-    ItemId() 
-      : m_bExists(0)
-    {
-    }
-    
-    ItemId(int name)
-      : m_bExists(true)
-      , m_Name(name)
-    {
-    }
-    
-    virtual ~ItemId()
-    {
-    }
-    
     ItemId operator=(const ItemID& other)
     {
       m_Name = other.m_Name;
@@ -54,13 +26,15 @@ namespace DbGui
       return true;
     }
     
+    void Init() {m_bExists = 1;}
     void Clear() {m_bExists = 0;}
     bool Exists() {return m_bExists;}
     
-  private:
     bool m_bExists;
     int m_Name;
   }
+  
+  //---------------------------------------------------------------------------
   
   void Menu::Start()
   {
@@ -78,73 +52,70 @@ namespace DbGui
     Finish();
   }
   
-  void Process()
+  //---------------------------------------------------------------------------
+  
+  void Context::Init()
   {
-    if (!pCurrentMenu)
+    m_previousItem.Clear();
+  }
+  
+  void Context::Process()
+  {
+    if (!m_pActiveMenu)
       return;
     
-    _context.keyDown = 0;
+    m_keyDown = 0;
     if (inputNext)
-      _context.keyDown &= INPUT_NEXT;
+      m_keyDown &= INPUT_NEXT;
     if (inputPrev)
-      _context.keyDown &= INPUT_PREV;
+      m_keyDown &= INPUT_PREV;
     if (inputGo)
-      _context.keyDown &= INPUT_GO;
+      m_keyDown &= INPUT_GO;
     if (inputBack)
-      _context.KeyDown &= INPUT_BACK;
-      
-    pCurrentMenu->ProcessMenu();
+      m_keyDown &= INPUT_BACK;
+    
+    m_atY = 100;
+    m_pActiveMenu->Process();
   }
   
-  void SetMenuLayout(int x, int y, int labelWidth, int fieldWidth)
+  void Context::DoCursorInput()
   {
-    _context.currentX = x;
-    _context.currentY = y;
-    _context.labelWidth = labelWidth;
-    _context.fieldWidth = fieldWidth;
-  }
-  
-  bool Navigate(itemId &thisItem)
-  {
-     if (!pCurrentMenu->m_hotItem.Exists())
-      pCurrentMenu->hotItem = thisItem;
+     if (!m_pActiveMenu->m_hotItem.Exists())
+      m_pActiveMenu->m_cursorItem = m_currentItem;
       
-    if (pCurrentMenu->hotItem == thisItem)
+    if (m_pActiveMenu->m_cursorItem == m_currentItem)
     {
-      else if (_context.KeyDown & INPUT_NEXT)
+      else if (m_keyDown & INPUT_NEXT)
       {
-        pCurrentMenu->hotItem.Clear();
-        _context.KeyDown = 0;
+        m_pActiveMenu->m_cursorItem.Clear();
+        m_keyDown = 0;
       }
-      else if (_context.KeyDown & INPUT_PREV)
-        pCurrentMenu->hotItem = _context.lastItem; 
+      else if (m_keyDown & INPUT_PREV)
+        m_pActiveMenu->m_cursorItem = _context.m_previousItem; 
     }
   }
   
-  void FinishWidget(itemId &thisItem)
+  void Context::FinishedItem()
   {
-    _context.lastItem = thisItem;
-    _context.currentY += lineSpacing;
+    m_previousItem = m_currentItem;
+    m_atY += 50;
   }
   
-  bool Button(const char* label)
+  bool Context::Button(const char* label)
   {
-    if (!pCurrentMenu)
-      return false;
+    m_currentItem.Init(label);
+    DoCursorInput();
     
-    itemId thisItem(label);
-    Navigate(thisItem);
-    
-    bool retVal = false;
-    if (pCurrentMenu->hotItem == thisItem)
+    bool bPressed = false;
+    if (m_pActiveMenu->hotItem == thisItem)
     {
       if (_context.KeyDown & INPUT_GO)
-        retVal = true;
+        bPressed = true;
     }
     
     //draw
       
-    FinishWidget(thisItem);
-    return retVal;
+    FinishedItem();
+    return bPressed;
   }
 }
