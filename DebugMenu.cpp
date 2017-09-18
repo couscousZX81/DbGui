@@ -1,27 +1,44 @@
 
-
-
-class DebugMenuInactive : public DbGui::Menu
+namespace DebugMenu
 {
-public:
-  virtual void DoMenu() override
+  DbGui::Context _context;
+  
+  class MenuWaiting : public DbGui::Menu
+  {
+  public:
+    virtual void Process() override;
+  } _menuInactive;
+
+  class MenuMain : public DbGui::Menu
+  {
+  public:
+    virtual void Process() override;
+  } _menuMain;
+  
+  void MenuWaiting::Process()
   {
     if (L1+Select)
-      DbGui::SetMenu(&_debugMenuMain)
+      _context.m_pActiveMenu = &_menuMain;
   }
-} _debugMenuInactive;
-
-class DebugMenuMain : public DbGui::Menu
-{
-public:
-  virtual void DoMenu() override
+  
+  void MenuMain::Process()
   {
-    DbGui::SetMenuLayout(100, 100, 400, 400)
-    
-    if (DbGui::Button(this, "Button1")
+    if (_context.Button(this, "Button1")
       //do Button1 stuff
-      
-    if (DbGui::Button(this, "Button2")
+
+    if (_context.Button(this, "Button2")
       //do Button2 stuff
   }
-} _debugMenuMain;
+  
+  void Init()
+  {
+    _context.Init();
+    _context.m_pActiveMenu = &_menuInactive;
+  }
+  
+  void Process()
+  {
+    _context.Process();
+  }
+}
+
