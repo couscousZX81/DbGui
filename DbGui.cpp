@@ -7,33 +7,6 @@ namespace DbGui
   static const int INPUT_GO   = 0x004;
   static const int INPUT_BACK = 0x008;
   
-  struct ItemId
-  {
-    ItemId operator=(const ItemID& other)
-    {
-      m_Name = other.m_Name;
-      m_bExists = other.m_bExists;
-    }
-    
-    ItemId operator==(const ItemID& other)
-    {
-      if (m_bExists != other.m_bExists)
-        return false;
-      
-      if (m_Name != other.m_Name)
-        return false;
-      
-      return true;
-    }
-    
-    void Init() {m_bExists = 1;}
-    void Clear() {m_bExists = 0;}
-    bool Exists() {return m_bExists;}
-    
-    bool m_bExists;
-    int m_Name;
-  }
-  
   //---------------------------------------------------------------------------
   
   void Menu::Start()
@@ -54,14 +27,9 @@ namespace DbGui
   
   //---------------------------------------------------------------------------
   
-  void Context::Init()
-  {
-    m_previousItem.Clear();
-  }
-  
   void Context::Process()
   {
-    if (!m_pActiveMenu)
+    if (!m_pActiveMenu || !m_pActiveMenu->fnProcess)
       return;
     
     m_keyDown = 0;
@@ -75,7 +43,7 @@ namespace DbGui
       m_keyDown &= INPUT_BACK;
     
     m_atY = 100;
-    m_pActiveMenu->Process();
+    m_pActiveMenu->fnProcess();
   }
   
   void Context::DoCursorInput()
