@@ -12,6 +12,7 @@ namespace DbGui
   ItemId::ItemID()
     : m_bExists(false)
   {
+      
   }
   
   ItemId::Init()
@@ -89,8 +90,8 @@ namespace DbGui
   
   //---------------------------------------------------------------------------
   
-  Menu::Menu()
-    : m_fnProcess(NULL)
+  Menu::Menu(void (*f)(void))
+    : m_fnProcess(f)
   {
     
   }
