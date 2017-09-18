@@ -4,6 +4,9 @@ namespace DbGui
 {         
   struct ItemId
   {
+    bool m_bExists;
+    int m_Name;
+    
     ItemId operator=(const ItemID& other)
     {
       m_Name = other.m_Name;
@@ -24,9 +27,6 @@ namespace DbGui
     void Init() {m_bExists = 1;}
     void Clear() {m_bExists = 0;}
     bool Exists() {return m_bExists;}
-    
-    bool m_bExists;
-    int m_Name;
   }
   
   struct Menu
