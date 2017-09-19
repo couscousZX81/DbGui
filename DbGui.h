@@ -9,10 +9,9 @@ namespace DbGui
     bool m_bEmpty;
     int m_Name;
     
-    inline ItemId& operator=(const ItemID& other){ return CopyAssignment(other); }
+    ItemId& operator=(const ItemID& other);
     inline bool operator==(const X& lhs, const X& rhs){ return Compare(lhs,rhs) == 0; }
     inline bool operator!=(const X& lhs, const X& rhs){ return Compare(lhs,rhs) != 0; }
-    ItemId& CopyAssignment(const ItemId& other);
     int Compare(const ItemId& lhs, const ItemId& rhs);
 
     void Init();
