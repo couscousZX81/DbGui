@@ -2,9 +2,9 @@
 
 namespace DebugMenu
 {
-  DbGui::Context _context;
   DBGui::Menu _waiting;
   DBGui::Menu _mainMenu;
+  DbGui::Context _context(&_waiting);
   
   //---------------------------------------------------------------------------
   
@@ -34,11 +34,6 @@ namespace DebugMenu
   _mainMenu.m_pFn = MainMenu;
         
   //---------------------------------------------------------------------------
-  
-  void Init()
-  {   
-    _context.m_pMenu = &_waiting;
-  }
   
   void Enable(bEnable)
   {
