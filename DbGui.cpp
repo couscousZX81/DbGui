@@ -22,7 +22,7 @@ namespace DbGui
     m_bEmpty = false;
   }
   
-  ItemId& ItemId::CopyAssignment(const ItemId& other)
+  ItemId& ItemId::operator=(const ItemId& other)
   {
     m_bEmpty = rhs.m_bEmpty;
     m_Name = rhs.m_Name;
