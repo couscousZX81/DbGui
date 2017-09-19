@@ -2,5 +2,6 @@
 namespace DebugMenu
 {
   void Init();
-  void Exit();
+  void Enable(bool bEnable);
+  bool IsEnabled();
 }
