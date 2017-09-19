@@ -4,14 +4,17 @@ namespace DebugMenu
 {
   DbGui::Context _context;
   
-  void ProcessMenuWaiting()
+  DBGui::Menu _waiting;
+  DBGui::Menu _mainMenu;
+  
+  void Waiting()
   {
     if (L1+Select)
-      _context.m_pActiveMenu = &_menuMain;
+      _context.m_pActiveMenu = &_mainMenu;
   }
-  DBGui::Menu _menuWaiting(&ProcessMenuWaiting);
+  _waiting.m_pFn = Waiting;
   
-  void ProcessMenuMain()
+  void MainMenu()
   {
     if (_context.Button(this, "Button1")
       //do Button1 stuff
@@ -19,11 +22,11 @@ namespace DebugMenu
     if (_context.Button(this, "Button2")
       //do Button2 stuff
   }
-  DBGui::Menu _menuMain(&ProcessMenuMain);
+  _mainMenu.m_pFn = MainMenu;
   
   void Init()
   {   
-    _context.m_pActiveMenu = &_menuInactive;
+    _context.m_pActiveMenu = &_waiting;
   }
   
   void Exit()
