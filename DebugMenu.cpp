@@ -11,7 +11,7 @@ namespace DebugMenu
   void Waiting()
   {
     if (L1+Select)
-      _context.m_pActiveMenu = &_mainMenu;
+      _context.m_pMenu = &_mainMenu;
   }
   _waiting.m_pFn = Waiting;
   
@@ -21,7 +21,7 @@ namespace DebugMenu
   {
     if (m_keyDown & INPUT_POP)
     {
-      _context.m_pActiveMenu = &_waiting;
+      _context.m_pMenu = &_waiting;
       return;
     }
     
@@ -37,12 +37,12 @@ namespace DebugMenu
   
   void Init()
   {   
-    _context.m_pActiveMenu = &_waiting;
+    _context.m_pMenu = &_waiting;
   }
   
   void Exit()
   {   
-    _context.m_pActiveMenu = NULL;
+    _context.m_pMenu = NULL;
   }
   
   void Process()
