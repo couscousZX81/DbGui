@@ -29,12 +29,12 @@ namespace DbGui
     return *this;
   }
   
-  bool ItemId::Compare(const ItemId& lhs, const ItemId& rhs)
+  int ItemId::Compare(const ItemId& lhs, const ItemId& rhs)
   {
     if (lhs.m_bEmpty != rhs.m_bEmpty ||
         lhs.m_Name != rhs.m_Name)
-      return false;
-    return true;
+      return 1;
+    return 0;
   }
   
   //---------------------------------------------------------------------------
