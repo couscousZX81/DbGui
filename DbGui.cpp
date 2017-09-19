@@ -38,9 +38,9 @@ namespace DbGui
       m_pMenu->m_highlightedLine--;
     
     if (m_pMenu->m_highlightedLine < 0)
-      m_pMenu->m_highlightedLine += m_line;
+      m_pMenu->m_highlightedLine = m_line-1;
     else if (m_pMenu->m_highlightedLine >= m_line)
-      m_pMenu->m_highlightedLine -= m_line;
+      m_pMenu->m_highlightedLine = 0;
   }
   
   bool Context::Pop()
