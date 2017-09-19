@@ -19,16 +19,16 @@ namespace DebugMenu
   
   void MainMenu()
   {
-    if (m_keyDown & INPUT_POP)
+    if (_context.Pop())
     {
       _context.m_pMenu = &_waiting;
       return;
     }
     
-    if (_context.Button(this, "Button1")
+    if (_context.Button(this, "Button1"))
       //do Button1 stuff
 
-    if (_context.Button(this, "Button2")
+    if (_context.Button(this, "Button2"))
       //do Button2 stuff
   }
   _mainMenu.m_pFn = MainMenu;
