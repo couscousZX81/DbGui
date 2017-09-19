@@ -40,9 +40,17 @@ namespace DebugMenu
     _context.m_pMenu = &_waiting;
   }
   
-  void Exit()
-  {   
-    _context.m_pMenu = NULL;
+  void Enable(bEnable)
+  {
+    if (bEnable)
+      //registerProcessJob
+    else
+      //deregisterProcessJob
+  }
+  
+  bool IsEnabled()
+  {
+    return //isProcessJobRegistered
   }
   
   void Process()
