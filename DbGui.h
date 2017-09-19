@@ -19,11 +19,11 @@ namespace DbGui
   
   struct Menu
   {
-    Menu(void (*f)(void));
+    Menu();
     
     ItemId m_cursorItem;
     
-    void (*m_fnProcess)(void);
+    void (*m_pFn)(void);
   };
                      
   struct Context
