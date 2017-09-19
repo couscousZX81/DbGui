@@ -11,7 +11,7 @@ namespace DbGui
                      
   struct Context
   {
-    Context();
+    Context(Menu* pFirstMenu) : m_pMenu(pFirstMenu) {};
     
     Menu* m_pMenu;
     int m_line;
