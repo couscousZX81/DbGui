@@ -4,11 +4,9 @@ namespace DbGui
 {   
   struct Menu
   {
-    Menu();
-    
-    int m_highlightedLine;
-    
+    Menu() : m_pFn(NULL), m_highlightedLine(0) {}
     void (*m_pFn)(void);
+    int m_highlightedLine;
   };
                      
   struct Context
@@ -20,7 +18,7 @@ namespace DbGui
     int m_keyDown;
     
     void Process();
-    
+    bool Pop();
     bool Button(const char *label);
   };
 }
