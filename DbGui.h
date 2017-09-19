@@ -6,29 +6,16 @@ namespace DbGui
   {
     ItemId();
     
-    bool m_bExists;
+    bool m_bEmpty;
     int m_Name;
     
-    ItemId operator=(const ItemID& other)
-    {
-      m_Name = other.m_Name;
-      m_bExists = other.m_bExists;
-    }
-    
-    ItemId operator==(const ItemID& other)
-    {
-      if (m_bExists != other.m_bExists)
-        return false;
-      
-      if (m_Name != other.m_Name)
-        return false;
-      
-      return true;
-    }
-    
+    inline ItemId& operator=(const ItemID& other){ return Assign(other); }
+    inline bool operator==(const X& lhs, const X& rhs){ return Compare(lhs,rhs) == 0; }
+    inline bool operator!=(const X& lhs, const X& rhs){ return Compare(lhs,rhs) != 0; }
+    ItemId& Assign(const ItemId& other);
+    bool Compare(const ItemId& lhs, const ItemId& rhs);
+
     void Init();
-    void Clear() {m_bExists = 0;}
-    bool Exists() {return m_bExists;}
   };
   
   struct Menu
