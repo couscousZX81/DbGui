@@ -39,8 +39,8 @@ namespace DbGui
   
   //---------------------------------------------------------------------------
   
-  Menu::Menu(void (*f)(void))
-    : m_fnProcess(f)
+  void Menu::SetProcessFunction()
+    : m_pFn(NULL)
   {
     
   }
@@ -55,7 +55,7 @@ namespace DbGui
   
   void Context::Process()
   {
-    if (!m_pActiveMenu || !m_pActiveMenu->fnProcess)
+    if (!m_pActiveMenu || !m_pActiveMenu->m_pFn)
       return;
     
     m_currentItem.m_bEmpty = true;
@@ -76,7 +76,7 @@ namespace DbGui
     if (inputPop)
       m_keyDown &= INPUT_POP;
     
-    m_pActiveMenu->fnProcess();
+    m_pActiveMenu->m_pFn();
   }
   
   void Context::DoCursorInput()
