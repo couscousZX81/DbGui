@@ -13,7 +13,7 @@ namespace DbGui
     inline bool operator==(const X& lhs, const X& rhs){ return Compare(lhs,rhs) == 0; }
     inline bool operator!=(const X& lhs, const X& rhs){ return Compare(lhs,rhs) != 0; }
     ItemId& Assign(const ItemId& other);
-    bool Compare(const ItemId& lhs, const ItemId& rhs);
+    int Compare(const ItemId& lhs, const ItemId& rhs);
 
     void Init();
   };
