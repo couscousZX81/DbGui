@@ -43,11 +43,6 @@ namespace DebugMenu
       //deregisterProcessJob
   }
   
-  bool IsEnabled()
-  {
-    return //isProcessJobRegistered
-  }
-  
   void Process()
   {
     _context.Process();
