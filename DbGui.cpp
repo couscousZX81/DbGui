@@ -9,17 +9,6 @@ namespace DbGui
   static const int INPUT_PUSH = 0x0010;
   static const int INPUT_POP = 0x0020;
   
-  //---------------------------------------------------------------------------
-  
-  void Menu::SetProcessFunction()
-    : m_pFn(NULL)
-    , m_highlightedLine(0)
-  {
-    
-  }
-  
-  //---------------------------------------------------------------------------
-  
   Context::Context()
     : m_pMenu(NULL)
   {
@@ -58,6 +47,11 @@ namespace DbGui
       m_pMenu->m_highlightedLine += m_line;
     else if (m_pMenu->m_highlightedLine >= m_line)
       m_pMenu->m_highlightedLine -= m_line;
+  }
+  
+  bool Context::Pop()
+  {
+      return (m_keyDown & INPUT_POP);
   }
   
   bool Context::Button(const char* label)
