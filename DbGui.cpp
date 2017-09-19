@@ -12,14 +12,29 @@ namespace DbGui
   //---------------------------------------------------------------------------
   
   ItemId::ItemID()
-    : m_bExists(false)
+    : m_bEmpty(true)
   {
       
   }
   
-  ItemId::Init()
+  void ItemId::Init()
   {
-    m_bExists = 1;
+    m_bEmpty = false;
+  }
+  
+  ItemId& ItemId::Assign(const ItemId& other)
+  {
+    m_bEmpty = rhs.m_bEmpty;
+    m_Name = rhs.m_Name;
+    return *this;
+  }
+  
+  bool ItemId::Compare(const ItemId& lhs, const ItemId& rhs)
+  {
+    if (lhs.m_bEmpty != rhs.m_bEmpty ||
+        lhs.m_Name != rhs.m_Name)
+      return false;
+    return true;
   }
   
   //---------------------------------------------------------------------------
@@ -43,8 +58,8 @@ namespace DbGui
     if (!m_pActiveMenu || !m_pActiveMenu->fnProcess)
       return;
     
-    m_currentItem.Clear();
-    m_previousItem.Clear();
+    m_currentItem.m_bEmpty = true;
+    m_previousItem.m_bEmpty = true;
     m_atY = 100;
     
     m_keyDown = 0;
@@ -66,13 +81,13 @@ namespace DbGui
   
   void Context::DoCursorInput()
   {
-    if (!m_pActiveMenu->m_hotItem.Exists())
+    if (m_pActiveMenu->m_hotItem.m_bEmpty)
       m_pActiveMenu->m_cursorItem = m_currentItem;
       
     if (m_pActiveMenu->m_cursorItem == m_currentItem)
     {
       if (m_keyDown & INPUT_NEXT)
-        m_pActiveMenu->m_cursorItem.Clear();
+        m_pActiveMenu->m_cursorItem.m_bEmpty = true;
       else if (m_keyDown & INPUT_PREV)
         m_pActiveMenu->m_cursorItem = m_previousItem; 
     }
