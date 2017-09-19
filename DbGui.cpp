@@ -9,12 +9,6 @@ namespace DbGui
   static const int INPUT_PUSH = 0x0010;
   static const int INPUT_POP = 0x0020;
   
-  Context::Context()
-    : m_pMenu(NULL)
-  {
-    
-  }
-  
   void Context::Process()
   {
     if (!m_pMenu || !m_pMenu->m_pFn)
