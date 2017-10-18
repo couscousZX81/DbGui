@@ -35,8 +35,8 @@ namespace DbGui
 	static MyColour _colourBGHigh = MyColour(224,224,224,20);
 	static MyColour _colourField = MyColour(40,80,255,255);
 	static MyColour _colourFieldHigh = MyColour(255,255,255,255);
-	static MyColour _colourSlider = MyColour(255,128,0,255);
-	static MyColour _colourSliderHigh = MyColour(255,128,0,255);
+	static MyColour _colourActive = MyColour(255,128,0,255);
+	static MyColour _colourActiveHigh = MyColour(255,128,0,255);
 	static MyColour _colourText = MyColour(255,255,255,255);
 	static MyColour _colourTextHigh = MyColour(0,0,0,255);
 
@@ -83,15 +83,19 @@ namespace DbGui
 		MyPrim::Draw2DRect(_render.bgX, _render.bgY, _render.bgW, _render.bgH, col);
 	}
   
-	void RenderFieldBackground()
+	void RenderFieldBackground(bActive)
 	{
-		MyColour col = (_render.bHighlight ? _colourFieldHigh : _colourField);
+		NuColour col;
+		if (bActive)
+			col = (_render.bHighlight ? _colourActiveHigh : _colourActive);
+		else
+			col = (_render.bHighlight ? _colourFieldHigh : _colourField);
 		MyPrim::Draw2DRect(_render.fieldX, _render.fieldY, _render.fieldW, _render.fieldH, col);
 	}
 
 	void RenderSliderInt(const int i, int min, int max)
 	{
-		MyColour col = (_render.bHighlight ? _colourSliderHigh : _colourSlider);
+		MyColour col = (_render.bHighlight ? _colourActiveHigh : _colourActive);
 
 		float t = ((float)i - (float)min) / ((float)max - (float)min);
 		float halfW = _sliderW*0.5f;
@@ -294,7 +298,7 @@ namespace DbGui
 	{
 		StartNewItem(this);
 		RenderBackground();
-		RenderFieldBackground();
+		RenderFieldBackground(b);
 		RenderFieldBool(b);
 		RenderLabel(label);
 		
@@ -319,7 +323,7 @@ namespace DbGui
 	{
 		StartNewItem(this);
 		RenderBackground();
-		RenderFieldBackground();
+		RenderFieldBackground(0);
 		RenderSliderInt(i, min, max);
 		RenderFieldInt(i);
 		RenderLabel(label);
