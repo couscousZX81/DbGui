@@ -1,5 +1,6 @@
+#pragma once
 
 namespace DebugMenu
 {
-  void Enable(bool bEnable);
+	void Process();
 }
