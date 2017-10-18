@@ -1,24 +1,43 @@
-
+#pragma once
 
 namespace DbGui
 {   
-  struct Menu
-  {
-    Menu() : m_pFn(NULL), m_highlightedLine(0) {}
-    void (*m_pFn)(void);
-    int m_highlightedLine;
-  };
+	struct Menu
+	{
+		Menu() : m_highlightedLine(0) {}
+		
+		int m_highlightedLine;
+
+		virtual void Process() {};
+	};
                      
-  struct Context
-  {
-    Context(Menu* pFirstMenu) : m_pMenu(pFirstMenu) {};
+	struct Context
+	{
+		Context() : m_menuStackPos(0) {};
     
-    Menu* m_pMenu;
-    int m_line;
-    int m_keyDown;
+		#define MENU_STACK_LIMIT 20
+		Menu* m_pMenuStack[MENU_STACK_LIMIT];
+		int m_menuStackPos;
+		int m_subMenuStackPos;
+		int m_line;
+		int m_keyDown;
+		bool m_dbFirst;
+		float m_dbTimer;
     
-    void Process();
-    bool Pop();
-    bool Button(const char *label);
-  };
+		void Process();
+		void Close() {m_menuStackPos = 0;}
+
+		void ResetDebounce();
+		bool UpdateDebounce();
+
+		void PushMenu(Menu* pMenu);
+		void PopMenu();
+
+		void PushSubMenu(const char* label, bool& bToggle);
+		void PopSubMenu();
+
+		bool ItemButton(const char* label);
+		bool ItemBool(const char* label, bool& b);
+		bool ItemInt(const char* label, int& i, int min, int max, int step = 1);
+	};
 }
