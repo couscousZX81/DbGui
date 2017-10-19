@@ -35,8 +35,8 @@ namespace DbGui
 	static MyColour _colourBGHigh = MyColour(224,224,224,20);
 	static MyColour _colourField = MyColour(40,80,255,255);
 	static MyColour _colourFieldHigh = MyColour(255,255,255,255);
-	static MyColour _colourActive = MyColour(255,128,0,255);
-	static MyColour _colourActiveHigh = MyColour(255,128,0,255);
+	static MyColour _colourActive = MyColour(255,150,44,255);
+	static MyColour _colourActiveHigh = MyColour(255,100,0,255);
 	static MyColour _colourText = MyColour(255,255,255,255);
 	static MyColour _colourTextHigh = MyColour(0,0,0,255);
 
